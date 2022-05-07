@@ -3,9 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use Illuminate\Contracts\Auth\Authenticatable;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 
 class AuthController extends Controller
@@ -24,9 +25,9 @@ class AuthController extends Controller
     }
 
     /**
-     * @return \Illuminate\Http\JsonResponse|\Illuminate\Contracts\Auth\Authenticatable|null
+     * @return JsonResponse|Authenticatable|null
      */
-    public function login(): \Illuminate\Http\JsonResponse|\Illuminate\Contracts\Auth\Authenticatable|null
+    public function login(): JsonResponse|Authenticatable|null
     {
         if(! auth()->attempt($this->request->only('email', 'password'))){
             return response()->json(['message' => 'Wrong login or password!'], 422);
@@ -37,10 +38,10 @@ class AuthController extends Controller
     }
 
     /**
-     * @return \Illuminate\Http\JsonResponse
+     * @return JsonResponse
      * @throws \Illuminate\Validation\ValidationException
      */
-    public function register(): \Illuminate\Http\JsonResponse
+    public function register(): JsonResponse
     {
         $validator = Validator::make($this->request->all(), [
             'email' => ['bail', 'required', 'string', 'email', 'max:255', 'unique:users'],
@@ -81,7 +82,10 @@ class AuthController extends Controller
         return response()->json($user->refresh(), 201);
     }
 
-    public function logout(): \Illuminate\Http\JsonResponse
+    /**
+     * @return JsonResponse
+     */
+    public function logout(): JsonResponse
     {
         auth()->guard('web')->logout();
 
