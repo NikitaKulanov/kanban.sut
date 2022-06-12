@@ -12,28 +12,29 @@ class VerifyHeadersForApi
     /**
      * Handle an incoming request.
      *
-     * @param \Illuminate\Http\Request $request
-     * @param \Closure(\Illuminate\Http\Request): (\Illuminate\Http\Response|\Illuminate\Http\RedirectResponse)  $next
+     * @param Request $request
+     * @param Closure(\Illuminate\Http\Request): (\Illuminate\Http\Response|\Illuminate\Http\RedirectResponse)  $next
      * @param string $accept
-     * @param string $contentType
      * @return mixed
      */
     public function handle(
         Request $request,
         Closure $next,
-        string $accept,
-        string $contentType
+        string $accept
     ): mixed
     {
-        if($request->accepts($accept)){
-            if(
-                in_array($request->method(), ['POST', 'PUT', 'PATCH']) and
-                $request->header('Content-Type') !== $contentType)
-            {
-                return redirect(RouteServiceProvider::HOME);
-            } else {
-                return $next($request);
-            }
+        if($request->accepts($accept)) {
+//            if(
+//                in_array($request->method(), ['POST', 'PUT', 'PATCH']) and
+//                !in_array($request->header('Content-Type'), ['application/json', 'multipart/form-data']))
+////                $request->header('Content-Type') !== $contentTypes)
+//            {
+////                return redirect(RouteServiceProvider::HOME);
+//                return abort(400, $request->header('Content-Type') === 'multipart/form-data' ? 'Правда': 'Ложь');
+//            } else {
+//                return $next($request);
+//            }
+            return $next($request);
         }
         return redirect(RouteServiceProvider::HOME);
     }

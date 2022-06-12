@@ -15,27 +15,9 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('statuses')->insert([
-            [
-                'id' => 1,
-                'title' => 'К ВЫПОЛНЕНИЮ'
-            ],
-            [
-                'id' => 2,
-                'title' => 'В РАБОТЕ'
-            ],
-            [
-                'id' => 3,
-                'title' => 'НА ОБСУЖДЕНИЕ'
-            ],
-            [
-                'id' => 4,
-                'title' => 'НА ПРОВЕРКЕ'
-            ],
-            [
-                'id' => 5,
-                'title' => 'ГОТОВО'
-            ],
+        $this->call([
+            RightSeeder::class,
+            StatusSeeder::class
         ]);
     }
 }

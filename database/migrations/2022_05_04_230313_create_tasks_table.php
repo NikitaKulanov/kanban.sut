@@ -21,6 +21,7 @@ return new class extends Migration
             $table->unsignedBigInteger('description_task_id');
             $table->foreign('description_task_id')->references('id')->on('description_tasks');
             $table->string('estimate', 15)->default('Не оценено');
+            $table->boolean('is_deleted')->default(false);
             $table->timestamps();
         });
     }

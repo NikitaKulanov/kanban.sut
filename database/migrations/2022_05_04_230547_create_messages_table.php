@@ -20,6 +20,7 @@ return new class extends Migration
             $table->foreign('sender_id')->references('id')->on('users');
             $table->text('message');
             $table->boolean('is_checked')->default(false);
+            $table->boolean('is_deleted')->default(false);
             $table->timestamps();
         });
     }

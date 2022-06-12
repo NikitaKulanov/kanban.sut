@@ -19,7 +19,6 @@ return new class extends Migration
             $table->string('original_extension', 10);
             $table->string('name', 45);
             $table->string('extension', 10);
-            $table->foreignId('task_id')->constrained();
             $table->unsignedBigInteger('sender_id');
             $table->foreign('sender_id')->references('id')->on('users');
             $table->timestamps();

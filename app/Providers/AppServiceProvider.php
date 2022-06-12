@@ -2,6 +2,9 @@
 
 namespace App\Providers;
 
+use App\Http\Controllers\BindingController;
+use App\Services\BindingService;
+use Illuminate\Http\Request;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -13,7 +16,13 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        //
+        $this->app->bind(BindingController::class, function () {
+            return new BindingController(
+                config('sut.rights_for_binding'),
+                new BindingService(),
+                $this->app->make(Request::class)
+            );
+        });
     }
 
     /**

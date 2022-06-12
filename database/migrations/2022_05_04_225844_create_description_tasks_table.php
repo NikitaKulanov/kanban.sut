@@ -22,6 +22,8 @@ return new class extends Migration
             $table->string('theme')->default('Не назначена');
             $table->text('description');
             $table->dateTime('deadline')->nullable();
+            $table->boolean('is_public')->default(false);
+            $table->dateTime('appointment')->nullable();
             $table->timestamps();
         });
     }

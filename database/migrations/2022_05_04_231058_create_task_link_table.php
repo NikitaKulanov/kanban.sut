@@ -17,6 +17,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('task_id')->constrained();
             $table->foreignId('link_id')->constrained();
+            $table->boolean('is_deleted')->default(false);
         });
     }
 
